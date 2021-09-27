@@ -1,4 +1,4 @@
 # network
 
 
-Network class and algorithms in C++
+Network/graph class and algorithms in C++
