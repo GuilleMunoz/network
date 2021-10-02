@@ -65,12 +65,3 @@ void Prim::run(int u)
         }
     }
 }
-
-
-ostream & operator<<(ostream &out, const Prim &prim)
-{
-    for (auto u: prim.prev)
-        out << u << " ";
-
-    return out;
-}

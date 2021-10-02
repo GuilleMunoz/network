@@ -50,6 +50,7 @@ void Tarjan::find_SCC(int u)
     }
 }
 
+
 /**
  * A strongly conected component (SCC) of a graph is a set of nodes where it exists a path between any pair.
  * This algorithm (Tarjan's) finds the SCC of each node. 

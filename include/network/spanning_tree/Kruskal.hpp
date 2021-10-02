@@ -23,6 +23,4 @@ public:
     void run();
 };
 
-ostream & operator<<(ostream &out, const Kruskal &kruskal);
-
 #endif

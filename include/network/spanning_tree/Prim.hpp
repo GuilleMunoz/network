@@ -24,6 +24,4 @@ public:
 
 };
 
-ostream & operator<<(ostream &out, const Prim &prim);
-
 #endif

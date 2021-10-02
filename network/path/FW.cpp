@@ -7,18 +7,14 @@ Floyd_Warshall::Floyd_Warshall(const Graph &G):
     dist(G.get_n_nodes() * G.get_n_nodes(), MAX),
     next(G.get_n_nodes() * G.get_n_nodes(), 0)
 {
-    vector<tuple<int, int, double>> edges = G.get_edges();
+    vector<Edge> edges = G.get_edges();
 
-    int u, v;
-    double w;
-
-    for (auto it = begin(edges); it != end(edges); ++it)
+    for (auto edge = begin(edges); edge != end(edges); ++edge)
     {
-        tie(u, v, w) = *it;
-        this->dist[u * this->N + v] = w; 
-        this->next[u * this->N + v] = v;
+        this->dist[(*edge).source * this->N + (*edge).dest] = (*edge).weight; 
+        this->next[(*edge).source * this->N + (*edge).dest] = (*edge).dest;
     }
-    for (u = 0; u < this->N; ++u)
+    for (int u = 0; u < this->N; ++u)
     {
         this->dist[u * this->N + u] = 0; 
         this->next[u * this->N + u] = u;

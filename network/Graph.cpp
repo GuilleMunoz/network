@@ -49,20 +49,22 @@ void Graph::add_edge(int u, int v, double w)
 }
 
 
-vector<tuple<int, int, double>> Graph::get_edges() const
+vector<Edge> Graph::get_edges() const
 {
-    vector<tuple<int, int, double>> edges_tups;
+    vector<Edge> edges;
 
     for (int u=0; u < N; ++u)
     {
-        for(int i = 0; i < edges[u].size(); ++i)
+        for(int i = 0; i < this->edges[u].size(); ++i)
         {
             // To avoid duplicate edges we store (u, v) if u < v
-            if (u > edges[u][i]) continue;
-            edges_tups.push_back(make_tuple(u, edges[u][i], weights[u][i]));
+            if (u > this->edges[u][i]) continue;
+
+            Edge edge = Edge(u, this->edges[u][i], weights[u][i]);
+            edges.push_back(edge);
         }
     }
-    return edges_tups;
+    return edges;
 }
 
 

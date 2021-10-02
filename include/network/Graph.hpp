@@ -15,6 +15,31 @@ using namespace std;
 
 const double MAX = numeric_limits<double>::max();
 
+
+struct Edge
+{
+    int source;
+    int dest;
+    double weight;
+
+    Edge(int source, int dest, double weight=MAX):
+        source(source),
+        dest(dest),
+        weight(weight)
+    {}
+
+    bool operator<(const Edge& other) const
+    {
+        return weight < other.weight;
+    }
+
+    bool operator>(const Edge& other) const
+    {
+        return weight > other.weight;
+    }
+};
+
+
 class Graph
 {
 private:
@@ -49,7 +74,7 @@ public:
     const vector<int> &get_neighs(const int u) const {return edges[u];};
     const vector<double> &get_weights(const int u) const {return weights[u];};
 
-    vector<tuple<int, int, double> > get_edges() const;
+    vector<Edge> get_edges() const;
 
     void add_edge(int u, int v, double w=1.0);
     void add_node();
