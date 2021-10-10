@@ -51,8 +51,6 @@ inline void Kruskal::merge(int u, int v, int root_u, int root_v)
  * 
  * Time complexity = O(E * log(V))
  * Space complexity = O(max(E, N))
- * 
- * @return A vector where the ith element is the node previous to i in the tree
  */
 void Kruskal::run()
 {
