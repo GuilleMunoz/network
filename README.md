@@ -25,7 +25,6 @@ $ ./test
 
 ### Data Structures
 
----
 #### Graph
 
 The main class, Graph, is where the data structure core is implemented.
@@ -95,7 +94,6 @@ u = vec[0] > vec[1] > ... > vec[-1] = v
 
 It has a time complexity of `O(N^3)` and a space complexity `O(N^2)`.
 
----
 ### Minimum Spanning Tree
 
 A Minimum Spanning Tree (MST) is a subset of edges such that their exists no cycles and the minimum possible total edge weight.
