@@ -23,4 +23,4 @@ $ ./test
 
 ## Documentation
 
-All the documentation can be found [here](https://github.com/GuilleMunoz/network/wiki/Documentation) page.
+All the documentation can be found [here](https://github.com/GuilleMunoz/network/wiki/Documentation).
