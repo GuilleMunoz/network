@@ -8,6 +8,8 @@ This project provides a simple implementation of a graph data structure and mult
 
 ## Usage
 
+---
+
 We will work with the example "test.cpp" (see also CMakeLists.txt).
 
 ```bash
@@ -22,6 +24,8 @@ $ ./test
 ```
 
 ## Documentation 
+
+---
 
 ### Data Structures
 
@@ -52,7 +56,7 @@ A class used to represent edges in a graph:
 
 All the algorithms will be implemented in their own class, which will have a run function.
 
----
+___
 ### Strongly Connected Components
 
 A component is said to be Strongly Connected if for every pair of nodes `u, v`, it exists a path `u > u_1 > ... > v` that connects `u` and `v`.
@@ -64,7 +68,7 @@ Two nodes `u` and `v` are in the same SCC if and only if `Tarjan.components[u] =
 
 It has a time complexity of `O(N + E)` and a space complexity `O(N)`.
 
----
+___
 ### Shortest Path
 
 #### [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
@@ -94,6 +98,7 @@ u = vec[0] > vec[1] > ... > vec[-1] = v
 
 It has a time complexity of `O(N^3)` and a space complexity `O(N^2)`.
 
+___
 ### Minimum Spanning Tree
 
 A Minimum Spanning Tree (MST) is a subset of edges such that their exists no cycles and the minimum possible total edge weight.
