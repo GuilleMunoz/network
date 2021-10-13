@@ -21,3 +21,6 @@ $ ./test
 0 0 1 0 3 
 ```
 
+## Documentation
+
+All the documentation can be found [here](https://github.com/GuilleMunoz/network/wiki/Documentation) page.
