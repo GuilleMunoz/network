@@ -6,6 +6,23 @@ Since Euler graph theory has been used to solve a whole host of problems, such a
 
 This project provides a simple implementation of a graph data structure and multiple algorithms in the blazingly fast C++.
 
+## Usage
+
+We will work with the example "test.cpp" (see also CMakeLists.txt).
+
+```bash
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ ./test
+0 0 1 0 3 
+0 0 1 0 3 
+0 0 1 0 3 
+```
+
+## Documentation 
+
 ### Data Structures
 
 ---
