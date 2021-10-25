@@ -1,4 +1,22 @@
-#include <Graph.hpp>
+#include "Graph.hpp"
+
+
+ostream & operator<<(ostream &out, const Edge edge)
+{
+    out << edge.source << ' ' << edge.dest << ' ' << edge.weight;
+    return out;
+}
+
+
+/**
+ * Adds a node to the graph
+ */
+void Graph::add_node()
+{
+    edges.push_back(vector<int>());
+    weights.push_back(vector<double>());
+    N++;
+}
 
 
 template <class comparable>
@@ -9,24 +27,9 @@ inline comparable _max_(comparable u, comparable v)
 
 
 /**
- * Adds an edge from u to v with weight w. If their are no enough nodes it 
+ * Adds an edge from u to v with weight w. If their are no enough nodes it
  * doesn't do anything.
- * 
- * @param u from node
- * @param v to node
- * @param w weight of the edge
- */
-void Graph::add_node()
-{
-    edges.push_back(vector<int>());
-    N ++; 
-}
-
-
-/**
- * Adds an edge from u to v with weight w. If their are no enough nodes it 
- * doesn't do anything.
- * 
+ *
  * @param u from node
  * @param v to node
  * @param w weight of the edge
@@ -34,7 +37,7 @@ void Graph::add_node()
 void Graph::add_edge(int u, int v, double w)
 {
     int m = _max_(u, v);
-    while (m > N) add_node();
+    if (m > N) resize(m);
 
     edges[u].push_back(v);
     weights[u].push_back(w);
@@ -49,6 +52,83 @@ void Graph::add_edge(int u, int v, double w)
 }
 
 
+/**
+ * Resizes a graph so that it contains n nodes
+ *
+ * @param n Number of nodes
+ */
+void Graph::resize(int n)
+{
+    if (n < this-> N)
+    {
+        // TODO: N Smaller. We have to loop through all the edges and delete those that have a node (U) such as U >= n
+    }else
+    {
+        for (int i = this->N; i < n; ++i) this->add_node();
+    }
+    this->N = n;
+}
+
+
+/**
+ * Loads a graph from a file (fname) with the following format:
+ *
+ * Line 1: N\n <number of nodes>
+ * Line 2: IS_DIRECTED\n <1 if directed 0 if undirected>
+ * Line 3: E1_source E1_dest E1_weight\n <edge 1>
+ * Line 4: E2_source E2_dest\n <edge 2 with default weight (1)>
+ * ...
+ * Line i: Ei_source Ei_dest Ei_weight\n <edge i - 2>
+ * ...
+ *
+ * @param fname (string) The name of the file to be read
+ */
+void Graph::read(const string &fname)
+{
+    ifstream graph(fname); // Open file
+    string line;
+
+    if (getline(graph, line)) // Number of nodes
+    {
+        if (line.size() <= 0) return;
+        int n = stoi(line);
+        this->resize(n);
+    }
+    if (getline(graph, line)) // If the graph is directed or not
+    {
+        if (line.size() <= 0) return;
+        this->is_directed = stoi(line) == 1;
+    }
+
+    int pos_source, pos_dest;
+    double weight;
+
+    while (getline(graph, line))
+    {
+        if ((pos_source = line.find(" ")) < 0) return;
+
+        if ((pos_dest = line.find(" ", pos_source + 1)) < 0)
+        {
+            if (pos_source == line.size()) continue; // No destination
+            weight = 1.; // Default weight
+            pos_dest = line.size() - 1;
+        }
+        else
+            weight = stod(line.substr(pos_dest + 1, line.size()));
+
+        int source = stoi(line.substr(0, pos_source));
+        int dest = stoi(line.substr(pos_source, pos_dest));
+
+        this->add_edge(source, dest, weight);
+    }
+}
+
+
+/**
+ * Gets the edges of the graph.
+ *
+ * @return vector<Edge> the edges of the graph
+ */
 vector<Edge> Graph::get_edges() const
 {
     vector<Edge> edges;
@@ -58,7 +138,7 @@ vector<Edge> Graph::get_edges() const
         for(int i = 0; i < this->edges[u].size(); ++i)
         {
             // To avoid duplicate edges we store (u, v) if u < v
-            if (u > this->edges[u][i]) continue;
+            if (! this->is_directed && u > this->edges[u][i]) continue;
 
             Edge edge = Edge(u, this->edges[u][i], weights[u][i]);
             edges.push_back(edge);
@@ -73,6 +153,8 @@ vector<Edge> Graph::get_edges() const
  * 
  * Space complexity = O(n)
  * Time complexity = O(n)
+ *
+ * @return True if the graph is connected else False
  */
 bool Graph::is_connected()
 {
@@ -112,6 +194,8 @@ bool Graph::is_connected()
  * 
  * Space complexity = O(2 * N)
  * Time complexity = O(N)
+ *
+ * @return True if the graph doesn't have cycles else False
  */
 bool Graph::is_acyclic()
 {
